@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import pickle
-from app import adi_col_name
+from database import adi_col_name
 app=Flask(__name__)
 
 @app.route('/')
