@@ -1,34 +1,56 @@
 from flask import Flask,render_template,request
 import pickle
-
+from app import adi_col_name
 app=Flask(__name__)
 
 @app.route('/')
 def welcome():
     return render_template("login.html")
 
-database = {'aditi':'1234',"sam":'5678'}
+# database = {'aditi':'1234',"sam":'5678'}
+database=adi_col_name.find()
+print("database: ",database)
+database_list=[]
+for item in database:
+    print(item)
+    database_list.append(item)
+
+# adi_col_name.delete_many({})
+#
+# print('list:',database_list[1]['username'])
+#
+database_username_aditi_list=[]
+database_username_aditi=adi_col_name.find({'username':'aditi'})
+print("database username aditi: ",database_username_aditi)
+for items in database_username_aditi:
+    database_username_aditi_list.append(items)
+
+print('database_username_aditi_list',database_username_aditi_list)
+
+
 
 @app.route('/login',methods=['POST'])
+def addNewUser():
+    # adi_col_name.insert_one(Student2)
+    pass
 def login():
      if request.method=='POST':
         username=request.form['username']
         password=request.form['password']
         print(username,password)
-        if username not in database:
+
+        if adi_col_name.find({'$and': [{'username':username},{'password':password}]}):
             print('first')
-            return render_template('login.html',info='invalid user')
+            return render_template('home.html', name=username)
         else:
-            print('sec')
-            if database[username]!=password:
-                return render_template('login.html',info='invalid user')
-            else:
-                return render_template('home.html',name=username)
+            return render_template('login.html',info='invalid username or password')
+
+
 
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False)
 
 # from flask import Flask,request,render_template
 # import pickle
