@@ -1,0 +1,8 @@
+To send email from flask app follow following steps:
+1. Enable two step verification on google account.
+2. After this go to app password and select custom and then type the name of the app and genreate the 16
+   digit password and use this password as your google account password.
+3.Run the code.
+
+test- using flask
+test2-without flask 

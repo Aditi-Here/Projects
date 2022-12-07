@@ -7,6 +7,15 @@ app=Flask(__name__)
 def welcome():
     return render_template("login.html")
 
+@app.route('/createaccount')
+def create():
+    return render_template("createaccount.html")
+
+@app.route('/reteivepassword')
+def reteivePassword():
+    return render_template("reteivePassword.html")
+
+
 # database = {'aditi':'1234',"sam":'5678'}
 database=adi_col_name.find()
 print("database: ",database)
@@ -29,25 +38,31 @@ print('database_username_aditi_list',database_username_aditi_list)
 
 
 
-@app.route('/login',methods=['POST'])
+@app.route('/create',methods=['POST'])
 def addNewUser():
     # adi_col_name.insert_one(Student2)
-    pass
-def login():
-     if request.method=='POST':
-        username=request.form['username']
-        password=request.form['password']
-        print(username,password)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        adi_col_name.insert_one({'username':username,'password':password})
+        return render_template('home.html', name=username)
 
-        if adi_col_name.find({'$and': [{'username':username},{'password':password}]}):
-            print('first')
-            return render_template('home.html', name=username)
-        else:
-            return render_template('login.html',info='invalid username or password')
-
-
-
-
+#@app.route('/create',methods=['POST'])
+# def login():
+#      if request.method=='POST':
+#         username=request.form['username']
+#         password=request.form['password']
+#         print(username,password)
+#
+#         if adi_col_name.find({'$and': [{'username':username},{'password':password}]}):
+#             print('first')
+#             return render_template('home.html', name=username)
+#         else:
+#             return render_template('login.html',info='invalid username or password')
+#
+#
+#
+#
 
 if __name__ == '__main__':
     app.run(debug=False)
