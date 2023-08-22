@@ -13,10 +13,9 @@ def create():
 
 @app.route('/reteivepassword')
 def reteivePassword():
-    return render_template("reteivePassword.html")
+    return render_template("reterivePassword.html")
 
 
-# database = {'aditi':'1234',"sam":'5678'}
 database=adi_col_name.find()
 print("database: ",database)
 database_list=[]
